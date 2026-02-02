@@ -1,0 +1,28 @@
+services:
+  doppler:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: trm-doppler:latest
+    container_name: trm-doppler
+    ports:
+      - "${JUPYTER_HOST_PORT:-8888}:${JUPYTER_CONTAINER_PORT:-8888}"
+    volumes:
+      # Workspace for notebooks and data I/O
+      - ./workspace/notebooks:/home/doppler/workspace/notebooks
+      - ./workspace/input:/home/doppler/workspace/input
+      - ./workspace/output:/home/doppler/workspace/output
+      # Software folder (read-only reference)
+      - ./software:/home/doppler/software:ro
+    environment:
+      - TRM_SOFTWARE=/opt/trm
+      - LD_LIBRARY_PATH=/opt/trm/lib
+      - JUPYTER_PORT=${JUPYTER_CONTAINER_PORT:-8888}
+    restart: unless-stopped
+    # Resource limits (adjust as needed)
+    deploy:
+      resources:
+        limits:
+          memory: 4G
+        reservations:
+          memory: 1G
