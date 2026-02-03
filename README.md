@@ -339,3 +339,14 @@ See [DEVELOPER.md](DEVELOPER.md) for:
 ## License
 
 This container setup is provided as-is. The scientific software is developed by Tom Marsh and collaborators.
+
+## Recent Fixes
+
+### NumPy Compatibility (2026-02-02)
+
+Fixed compatibility issues with NumPy 2.x by replacing deprecated type aliases:
+- `dtype=np.int` → `dtype=int` in trm-doppler
+- `dtype=np.float` → `dtype=float` in trm-subs
+
+These fixes are automatically applied during container build. See `NUMPY_FIX_SUMMARY.md` for details.
+

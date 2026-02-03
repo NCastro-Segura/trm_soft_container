@@ -253,15 +253,17 @@ RUN pip install --no-cache-dir numpy cython
 
 WORKDIR /build
 
-# Build trm-subs (Python utilities, required by trm-roche)
+# Build trm-subs (Python utilities, required by trm-roche) with NumPy compatibility fix
 RUN git clone --depth 1 https://github.com/trmrsh/trm-subs.git && \
     cd trm-subs && \
+    sed -i 's/dtype=np\.float)/dtype=float)/g' trm/subs/dvect/bug.py trm/subs/dvect/__init__.py && \
     pip install --no-cache-dir . && \
     cd .. && rm -rf trm-subs
 
-# Build trm-doppler
+# Build trm-doppler with NumPy compatibility fix
 RUN git clone --depth 1 https://github.com/genghisken/trm-doppler.git && \
     cd trm-doppler && \
+    sed -i 's/dtype=np\.int)/dtype=int)/g' trm/doppler/data.py trm/doppler/scripts/makedata.py && \
     pip install --no-cache-dir . && \
     cd .. && rm -rf trm-doppler
 
