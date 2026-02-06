@@ -348,5 +348,5 @@ Fixed compatibility issues with NumPy 2.x by replacing deprecated type aliases:
 - `dtype=np.int` → `dtype=int` in trm-doppler
 - `dtype=np.float` → `dtype=float` in trm-subs
 
-These fixes are automatically applied during container build. See `NUMPY_FIX_SUMMARY.md` for details.
+These fixes are automatically applied during container build.
 
